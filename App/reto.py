@@ -120,9 +120,26 @@ def main():
                 print("cuantas entradas quiere? ")
                 e = int(input())
                 print("De peor a mejor (1) - De mejor a peor (2) ? ")
-                e = int(input())
+                s = int(input())
+
+                if s == 1:
+                    s = True
+                else:
+                    s = False
+
                 try:
-                    _ = req.crear_ranking_genero(lista_details, e, g, ascendent=True)
+                    ranking, avg_v = req.crear_ranking_genero(lista_details, g, e, s)
+
+                    if s == 1:
+                        st = "mejores"
+                    else:
+                        st = "peores"
+
+                    print(f"Las {e} {st} peliculas del genero {g} son:")
+                    for c, i in enumerate(ranking):
+                        print(f"N{c+1}. {i}")
+
+                    print(f"Con promedio de votos {avg_v}")
                 except UnboundLocalError:
                     print("\n" * 10 + "!!!\n\nPrimero carga los datos\n\n!!!")
 

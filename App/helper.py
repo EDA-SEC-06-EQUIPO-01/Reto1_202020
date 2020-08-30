@@ -39,7 +39,7 @@ def loadCSVFile(file, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
 
 
 # funcion de utilidad para viajar por la lista
-def forward_travel(lista, parameter=None):
+def travel(lista, parameter=None):
 
     iter = it.newIterator(lista)
 
@@ -73,6 +73,20 @@ def less(element1, element2):
 
 def greater(element1, element2):
     return not less(element1, element2)
+
+
+def comp_count_avg_desc(element1, element2):
+    return not comp_count_avg_asc(element1, element2)
+
+
+def filter(lst, key, value, impl="SINGLE_LINKED"):
+    ret_lst = lt.newList(impl)
+    for item in travel(lst):
+        i = item[key].split("|")
+        if value in i:
+            lt.addLast(ret_lst, item)
+
+    return ret_lst
 
 
 def comp_count_avg_asc(element1, element2):
