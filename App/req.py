@@ -42,3 +42,7 @@ def crear_ranking_peli(details, x=10, ascendent=True) -> tuple:
     rank_av.sort(key=mov_avera, reverse=ascendent)
 
     return (rank_co[:x], rank_av[:x])
+
+
+def crear_ranking_genero(details, genero, retrieve=10, ascendent=True):
+    pass

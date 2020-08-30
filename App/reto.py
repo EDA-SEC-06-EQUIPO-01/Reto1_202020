@@ -91,28 +91,40 @@ def main():
 
             elif int(inputs[0]) == 3:  # opcion 3
                 director = input("Ingrese el nombre del director\n")
-                information = req.conocer_director(
-                    lista_details, lista_casting, director
-                )
-                for d in information:
-                    print(
-                        "id:",
-                        d["id"],
-                        " - " "title:",
-                        d["title"],
-                        " - ",
-                        "vote average:",
-                        d["vote_average"],
+                try:
+                    information = req.conocer_director(
+                        lista_details, lista_casting, director
                     )
+                    for d in information:
+                        print(
+                            "id:",
+                            d["id"],
+                            " - " "title:",
+                            d["title"],
+                            " - ",
+                            "vote average:",
+                            d["vote_average"],
+                        )
+                except UnboundLocalError:
+                    print("\n" * 10 + "!!!\n\nPrimero carga los datos\n\n!!!")
 
             elif int(inputs[0]) == 4:  # opcion 4
                 pass
 
-            elif int(inputs[0]) == 3:  # opcion 5
+            elif int(inputs[0]) == 5:  # opcion 5
                 pass
 
-            elif int(inputs[0]) == 4:  # opcion 6
-                pass
+            elif int(inputs[0]) == 6:  # opcion 6
+                print("Que genero quiere para crear el ranking? ")
+                g = input()
+                print("cuantas entradas quiere? ")
+                e = int(input())
+                print("De peor a mejor (1) - De mejor a peor (2) ? ")
+                e = int(input())
+                try:
+                    _ = req.crear_ranking_genero(lista_details, e, g, ascendent=True)
+                except UnboundLocalError:
+                    print("\n" * 10 + "!!!\n\nPrimero carga los datos\n\n!!!")
 
             elif int(inputs[0]) == 0:  # opcion 0, salir
                 sys.exit(0)
