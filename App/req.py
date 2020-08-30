@@ -3,6 +3,7 @@ import helper
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
+from Sorting import quicksort as sort
 
 
 def conocer_director(details, casting, director_name) -> dict:
@@ -45,4 +46,6 @@ def crear_ranking_peli(details, x=10, ascendent=True) -> tuple:
 
 
 def crear_ranking_genero(details, genero, retrieve=10, ascendent=True):
-    pass
+    sort.quickSort(details, helper.comp_count_avg_asc)
+
+    print("D")

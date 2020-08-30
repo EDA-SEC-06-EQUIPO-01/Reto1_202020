@@ -73,3 +73,18 @@ def less(element1, element2):
 
 def greater(element1, element2):
     return not less(element1, element2)
+
+
+def comp_count_avg_asc(element1, element2):
+    if (
+        element1["vote_count"] > element2["vote_count"]
+        and element1["vote_count"] > element2["vote_count"]
+    ):
+        return True
+    elif (
+        element1["vote_count"] < element2["vote_count"]
+        and element1["vote_count"] < element2["vote_count"]
+    ):
+        return False
+    else:
+        return element1["vote_count"] > element2["vote_count"]

@@ -80,10 +80,10 @@ def main():
 
             if int(inputs[0]) == 1:  # opcion 1
                 lista_details = h.loadCSVFile(
-                    details, impl="SINGLE_LINKED", cmpfunction=None
+                    details, impl="ARRAY_LIST", cmpfunction=None
                 )
                 lista_casting = h.loadCSVFile(
-                    casting, impl="SINGLE_LINKED", cmpfunction=None
+                    casting, impl="ARRAY_LIST", cmpfunction=None
                 )
 
             elif int(inputs[0]) == 2:  # opcion 2
