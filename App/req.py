@@ -27,14 +27,14 @@ def conocer_director(details, casting, director_name) -> dict:
 
 
 def mov_count(e):
-    return float(e['vote_count'])
+    return float(e["vote_count"])
 
 
 def mov_avera(e):
-    return float(e['vote_average'])
+    return float(e["vote_average"])
 
 
-def crear_ranking(details, x=10, ascendent=True) -> tuple:
+def crear_ranking_peli(details, x=10, ascendent=True) -> tuple:
     rank_co = list(helper.forward_travel(details))
     rank_co.sort(key=mov_count, reverse=ascendent)
 

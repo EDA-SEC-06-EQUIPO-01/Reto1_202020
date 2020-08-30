@@ -1,5 +1,5 @@
 from types import FunctionType
-import config
+import config as cf
 import csv
 from time import process_time
 
@@ -8,7 +8,7 @@ from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
 
 
-def loadCSVFile(file, sep=";", impl="SINGLE_LINKED"):
+def loadCSVFile(file, sep=";", impl="SINGLE_LINKED", cmpfunction=None):
     """
     Carga un archivo csv a una lista
     Args:
@@ -19,19 +19,18 @@ def loadCSVFile(file, sep=";", impl="SINGLE_LINKED"):
         Try:
         Intenta cargar el archivo CSV a la lista que se le pasa por parametro, si encuentra algun error
         Borra la lista e informa al usuario
-    Returns: None  
+    Returns: None
     """
-    # lst = lt.newList("ARRAY_LIST") #Usando implementacion arraylist
-    lst = lt.newList(impl)  # Usando implementacion linkedlist
+    lst = lt.newList(impl, cmpfunction)  # Usando implementacion linkedlist
     print("Cargando archivo ....")
     t1_start = process_time()  # tiempo inicial
     dialect = csv.excel()
     dialect.delimiter = sep
     try:
-        with open(file, encoding="utf-8") as csvfile:
-            spamreader = csv.DictReader(csvfile, dialect=dialect)
-            for row in spamreader:
-                lt.addLast(lst, row)
+        with open(cf.data_dir + file, encoding="utf-8") as csvfile:
+            row = csv.DictReader(csvfile, dialect=dialect)
+            for elemento in row:
+                lt.addLast(lst, elemento)
     except:
         print("Hubo un error con la carga del archivo")
     t1_stop = process_time()  # tiempo final
@@ -59,8 +58,10 @@ def timer(func):
         ret = func(*args, **kwargs)
         t2 = process_time()
         print(
-            f"El tiempo que tardó la funcion {func.__name__} fue de {t2 - t1} segundos.")
+            f"El tiempo que tardó la funcion {func.__name__} fue de {t2 - t1} segundos."
+        )
         return ret
+
     return inner
 
 

@@ -26,17 +26,21 @@
   Este módulo es una aplicación básica con un menú de opciones para cargar datos, contar elementos, y hacer búsquedas sobre una lista .
 """
 
-
-
+movies_dir = "themoviesdb/"
+details = movies_dir + "SmallMoviesDetailsCleaned.csv"
+casting = movies_dir + "MoviesCastingRaw-small.csv"
 
 import config as cf
 import sys
 import csv
 import req
+import helper as h
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
 from time import process_time
+
+
 def printMenu():
     """
     Imprime el menu de opciones
@@ -52,31 +56,11 @@ def printMenu():
 
 
 def compareRecordIds(recordA, recordB):
-    if int(recordA['id']) == int(recordB['id']):
+    if int(recordA["id"]) == int(recordB["id"]):
         return 0
-    elif int(recordA['id']) > int(recordB['id']):
+    elif int(recordA["id"]) > int(recordB["id"]):
         return 1
     return -1
-
-
-def loadCSVFile(file, cmpfunction):
-    lst = lt.newList("ARRAY_LIST", cmpfunction)
-    dialect = csv.excel()
-    dialect.delimiter = ";"
-    try:
-        with open(cf.data_dir + file, encoding="utf-8") as csvfile:
-            row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row:
-                lt.addLast(lst, elemento)
-    except:
-        print("Hubo un error con la carga del archivo")
-    return lst
-
-
-def loadMovies():
-    lst = loadCSVFile("theMoviesdb/movies-small.csv", compareRecordIds)
-    print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
-    return lst
 
 
 def main():
@@ -85,23 +69,41 @@ def main():
 
     Instancia una lista vacia en la cual se guardarán los datos cargados desde el archivo
     Args: None
-    Return: None 
+    Return: None
     """
 
     while True:
         printMenu()  # imprimir el menu de opciones en consola
         # leer opción ingresada
-        inputs = input('Seleccione una opción para continuar\n')
+        inputs = input("Seleccione una opción para continuar\n")
         if len(inputs) > 0:
 
             if int(inputs[0]) == 1:  # opcion 1
-                lstmovies = loadMovies()
+                lista_details = h.loadCSVFile(
+                    details, impl="SINGLE_LINKED", cmpfunction=None
+                )
+                lista_casting = h.loadCSVFile(
+                    casting, impl="SINGLE_LINKED", cmpfunction=None
+                )
 
             elif int(inputs[0]) == 2:  # opcion 2
-                req.conocer_director()
+                pass
 
             elif int(inputs[0]) == 3:  # opcion 3
-                req.crear_ranking()
+                director = input("Ingrese el nombre del director\n")
+                information = req.conocer_director(
+                    lista_details, lista_casting, director
+                )
+                for d in information:
+                    print(
+                        "id:",
+                        d["id"],
+                        " - " "title:",
+                        d["title"],
+                        " - ",
+                        "vote average:",
+                        d["vote_average"],
+                    )
 
             elif int(inputs[0]) == 4:  # opcion 4
                 pass
