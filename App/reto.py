@@ -26,18 +26,17 @@
   Este módulo es una aplicación básica con un menú de opciones para cargar datos, contar elementos, y hacer búsquedas sobre una lista .
 """
 
+
+
+
 import config as cf
 import sys
 import csv
-
+import req
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
-
-from time import process_time 
-
-
-
+from time import process_time
 def printMenu():
     """
     Imprime el menu de opciones
@@ -52,9 +51,7 @@ def printMenu():
     print("0- Salir")
 
 
-
-
-def compareRecordIds (recordA, recordB):
+def compareRecordIds(recordA, recordB):
     if int(recordA['id']) == int(recordB['id']):
         return 0
     elif int(recordA['id']) > int(recordB['id']):
@@ -62,23 +59,22 @@ def compareRecordIds (recordA, recordB):
     return -1
 
 
-
-def loadCSVFile (file, cmpfunction):
-    lst=lt.newList("ARRAY_LIST", cmpfunction)
+def loadCSVFile(file, cmpfunction):
+    lst = lt.newList("ARRAY_LIST", cmpfunction)
     dialect = csv.excel()
-    dialect.delimiter=";"
+    dialect.delimiter = ";"
     try:
-        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
+        with open(cf.data_dir + file, encoding="utf-8") as csvfile:
             row = csv.DictReader(csvfile, dialect=dialect)
-            for elemento in row: 
-                lt.addLast(lst,elemento)
+            for elemento in row:
+                lt.addLast(lst, elemento)
     except:
         print("Hubo un error con la carga del archivo")
     return lst
 
 
-def loadMovies ():
-    lst = loadCSVFile("theMoviesdb/movies-small.csv",compareRecordIds) 
+def loadMovies():
+    lst = loadCSVFile("theMoviesdb/movies-small.csv", compareRecordIds)
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
@@ -92,33 +88,33 @@ def main():
     Return: None 
     """
 
-
     while True:
-        printMenu() #imprimir el menu de opciones en consola
-        inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
-        if len(inputs)>0:
+        printMenu()  # imprimir el menu de opciones en consola
+        # leer opción ingresada
+        inputs = input('Seleccione una opción para continuar\n')
+        if len(inputs) > 0:
 
-            if int(inputs[0])==1: #opcion 1
+            if int(inputs[0]) == 1:  # opcion 1
                 lstmovies = loadMovies()
 
-            elif int(inputs[0])==2: #opcion 2
+            elif int(inputs[0]) == 2:  # opcion 2
+                req.conocer_director()
+
+            elif int(inputs[0]) == 3:  # opcion 3
+                req.crear_ranking()
+
+            elif int(inputs[0]) == 4:  # opcion 4
                 pass
 
-            elif int(inputs[0])==3: #opcion 3
+            elif int(inputs[0]) == 3:  # opcion 5
                 pass
 
-            elif int(inputs[0])==4: #opcion 4
+            elif int(inputs[0]) == 4:  # opcion 6
                 pass
 
-            elif int(inputs[0])==3: #opcion 5
-                pass
-
-            elif int(inputs[0])==4: #opcion 6
-                pass
-
-
-            elif int(inputs[0])==0: #opcion 0, salir
+            elif int(inputs[0]) == 0:  # opcion 0, salir
                 sys.exit(0)
-                
+
+
 if __name__ == "__main__":
     main()
