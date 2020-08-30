@@ -92,12 +92,12 @@ def filter(lst, key, value, impl="SINGLE_LINKED"):
 def comp_count_avg_asc(element1, element2):
     if (
         element1["vote_count"] > element2["vote_count"]
-        and element1["vote_count"] > element2["vote_count"]
+        and element1["vote_average"] > element2["vote_average"]
     ):
         return True
     elif (
         element1["vote_count"] < element2["vote_count"]
-        and element1["vote_count"] < element2["vote_count"]
+        and element1["vote_average"] < element2["vote_average"]
     ):
         return False
     else:
