@@ -6,6 +6,8 @@ from DataStructures import liststructure as lt
 from Sorting import quicksort as sort
 import itertools as itert
 
+# Requerimiento 3
+
 
 def conocer_director(details, casting, director_name) -> dict:
 
@@ -35,17 +37,33 @@ def mov_count(e):
 def mov_avera(e):
     return float(e["vote_average"])
 
-
-def crear_ranking_peli(details, x=10, ascendent=True) -> tuple:
-    rank_co = list(h.travel(details))
-    rank_co.sort(key=mov_count, reverse=ascendent)
-
-    rank_av = list(h.travel(details))
-    rank_av.sort(key=mov_avera, reverse=ascendent)
-
-    return (rank_co[:x], rank_av[:x])
+# Requerimiento 2
 
 
+def crear_ranking_peli(details, x=10, ascendent=True):
+    if ascendent:
+        sort.quickSort(details, h.comp_count_avg_asc)
+    else:
+        sort.quickSort(details, h.comp_count_avg_desc)
+
+    ranking = [item for item in itert.islice(h.travel(details), 0, x)]
+
+    return ranking
+
+# Requerimiento 5
+
+
+def entender_genero(details, genero):
+    lista_genero = h.filter(details, "genres", genero, impl="ARRAY_LIST")
+    length = lista_genero.size()
+
+    avg_vote_lst = [int(i["vote_count"]) for i in h.travel(lista_genero)]
+    avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)
+
+    return lista_genero, length, avg_vote
+
+
+# Requerimiento 6
 def crear_ranking_genero(details, genero, retrieve=10, ascendent=True):
 
     dgend = h.filter(details, "genres", genero, impl="ARRAY_LIST")
