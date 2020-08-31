@@ -81,6 +81,3 @@ def crear_ranking_genero(details, genero, retrieve=10, ascendent=True):
     avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)
 
     return ranking, avg_vote
-
-
-# "genres":'Music|Comedy|Action|Crime'
