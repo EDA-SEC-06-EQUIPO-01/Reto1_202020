@@ -55,7 +55,7 @@ def crear_ranking_peli(details, x=10, ascendent=True):
 
 def entender_genero(details, genero):
     lista_genero = h.filter(details, "genres", genero, impl="ARRAY_LIST")
-    length = lista_genero.size()
+    length = lt.size(lista_genero)
 
     avg_vote_lst = [int(i["vote_count"]) for i in h.travel(lista_genero)]
     avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)

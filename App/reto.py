@@ -136,6 +136,7 @@ def main():
                     cont = 0
                     print("Las películas que tienen dicho género son\n")
                     for i in h.travel(lista, parameter="title"):
+                        cont += 1
                         print(f'{cont}. {i}')
                     print(f"En total son {longitud} películas.")
                     print(
