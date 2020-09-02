@@ -125,11 +125,12 @@ def main():
                     print("\n" * 10 + "!!!\n\nPrimero carga los datos\n\n!!!")
 
             elif int(inputs[0]) == 4:  # opcion 4
-                name = input ("Ingrese el nombre del actor\n")
-                try :
-                   inf = req.conocer_actor(name)
-                   for ac in inf:
-                        print ((ac["title"])+","+(ac["numPeliculas"])+","+(ac["vote_average"])+","+(ac["director_name"]))
+                name = input("Ingrese el nombre del actor\n")
+                try:
+                    inf = req.conocer_actor(lista_details, lista_casting, name)
+                    for ac in inf:
+                        print((ac["title"])+","+(ac["numPeliculas"])+"," +
+                              (ac["vote_average"])+","+(ac["director_name"]))
                 except UnboundLocalError:
                     print("\n" * 10 + "!!!\n\nPrimero carga los datos\n\n!!!")
 

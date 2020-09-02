@@ -86,7 +86,7 @@ def crear_ranking_genero(details, genero, retrieve=10, ascendent=True):
 
 
 def conocer_actor(details, casting, actorName) -> dict:
-
+    # Este es el requerimiento opcional.
     lista = [
         node["id"]
         for node in h.travel(casting)
