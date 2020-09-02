@@ -81,3 +81,26 @@ def crear_ranking_genero(details, genero, retrieve=10, ascendent=True):
     avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)
 
     return ranking, avg_vote
+
+# Requerimiento 4
+def conocer_actor(details, casting, actorName) -> dict:
+
+    lista= [
+        node["id"]
+        for node in h.travel(casting)
+        if node["actor1_name"] == actorName or node["actor2_name"] == actorName or node["actor3_name"] == actorName or node["actor4_name"] == actorName or node["actor5_name"] == actorName
+    ]
+    actInf = []
+    for node in h.travel(details):
+        if node["id"] in lista:
+            ac = {
+                num ={node ["id"]},
+                avg ={node["vote_average"]}
+                "numPeliculas" : len(num),
+                "title": node ["title"],
+                "vote_average": (avg/(len(avg))),
+                "director_name": node["director_name"],
+            }
+            actInf.append(ac)
+
+    return actInf
