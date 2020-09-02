@@ -125,7 +125,11 @@ def main():
                     print("\n" * 10 + "!!!\n\nPrimero carga los datos\n\n!!!")
 
             elif int(inputs[0]) == 4:  # opcion 4
-                pass
+                name = input ("Ingrese el nombre del actor\n")
+                try :
+                    ac = req.conocer_actor (name)
+                    print ((ac["title"])+","+(ac["numPeliculas"])+","+(ac["vote_average"])+","+(ac["director_name"]))
+
 
             elif int(inputs[0]) == 5:  # opcion 5
                 genero = input(
