@@ -98,7 +98,7 @@ def conocer_actor(details, casting, actorName) -> dict:
                 avg ={node["vote_average"]}
                 "numPeliculas" : len(num),
                 "title": node ["title"],
-                "vote_average": (avg/(len(avg))),
+                "vote_average: (avg/(len(avg))),
                 "director_name": node["director_name"],
             }
             actInf.append(ac)
