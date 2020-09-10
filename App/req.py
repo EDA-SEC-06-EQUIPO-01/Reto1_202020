@@ -6,6 +6,43 @@ from DataStructures import liststructure as lt
 from Sorting import quicksort as sort
 import itertools as itert
 
+# Requerimiento 1
+
+
+def buenasPeliculas(director_name, casting, details) -> tuple:
+
+    lst1 = [
+        node["id"]
+        for node in h.travel(casting)
+        if node["director_name"] == director_name
+    ]
+
+    lst2 = [
+        float(node["vote_average"])
+        for node in h.travel(details)
+        if node["id"] in lst1 and float(node["vote_average"]) >= 6
+    ]
+
+    if len(lst2) <= 0:
+        return (0, 0)
+    else:
+        return (len(lst2), (sum(lst2)) / len(lst2))
+
+
+# Requerimiento 2
+
+
+def crear_ranking_peli(details, x=10, ascendent=True):
+    if ascendent:
+        sort.quickSort(details, h.comp_count_avg_asc)
+    else:
+        sort.quickSort(details, h.comp_count_avg_desc)
+
+    ranking = [item for item in itert.islice(h.travel(details), 0, x)]
+
+    return ranking
+
+
 # Requerimiento 3
 
 
@@ -37,18 +74,36 @@ def mov_count(e):
 def mov_avera(e):
     return float(e["vote_average"])
 
-# Requerimiento 2
+
+# Requerimiento 4
 
 
-def crear_ranking_peli(details, x=10, ascendent=True):
-    if ascendent:
-        sort.quickSort(details, h.comp_count_avg_asc)
-    else:
-        sort.quickSort(details, h.comp_count_avg_desc)
+def conocer_actor(details, casting, actorName) -> dict:
+    # Este es el requerimiento opcional.
+    lista = [
+        node["id"]
+        for node in h.travel(casting)
+        if node["actor1_name"] == actorName
+        or node["actor2_name"] == actorName
+        or node["actor3_name"] == actorName
+        or node["actor4_name"] == actorName
+        or node["actor5_name"] == actorName
+    ]
+    actInf = []
+    for node in h.travel(details):
+        if node["id"] in lista:
+            ac = {
+                "num": {node["id"]},
+                "avg": {node["vote_average"]},
+                "title": node["title"],
+                "director_name": node["director_name"],
+            }
+            ac["numPeliculas"] = len(ac["num"])
+            ac["vote_average"] = ac["avg"] / len(ac["avg"])
+            actInf.append(ac)
 
-    ranking = [item for item in itert.islice(h.travel(details), 0, x)]
+    return actInf
 
-    return ranking
 
 # Requerimiento 5
 
@@ -81,28 +136,3 @@ def crear_ranking_genero(details, genero, retrieve=10, ascendent=True):
     avg_vote = sum(avg_vote_lst) / len(avg_vote_lst)
 
     return ranking, avg_vote
-
-# Requerimiento 4
-
-
-def conocer_actor(details, casting, actorName) -> dict:
-    # Este es el requerimiento opcional.
-    lista = [
-        node["id"]
-        for node in h.travel(casting)
-        if node["actor1_name"] == actorName or node["actor2_name"] == actorName or node["actor3_name"] == actorName or node["actor4_name"] == actorName or node["actor5_name"] == actorName
-    ]
-    actInf = []
-    for node in h.travel(details):
-        if node["id"] in lista:
-            ac = {
-                "num": {node["id"]},
-                "avg": {node["vote_average"]},
-                "title": node["title"],
-                "director_name": node["director_name"],
-            }
-            ac["numPeliculas"] = len(ac["num"])
-            ac["vote_average"] = (ac["avg"]/len(ac["avg"]))
-            actInf.append(ac)
-
-    return actInf
